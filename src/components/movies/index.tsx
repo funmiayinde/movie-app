@@ -2,8 +2,6 @@ import { useEffect, useState, useRef } from 'react';
 import { useSearchParams, useLocation } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-// import { ScrollToTop, MoviesItem, StartFound, NotFound } from '../';
-
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { findMovies } from '../../redux/middlewares';
 import { Loading } from '../Loading';
@@ -59,22 +57,6 @@ const Movies: React.FC = () => {
     }
   };
 
-  const animation = {
-    initial: {
-      x: '-10rem',
-      opacity: 0,
-    },
-    animate: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-        ease: 'easeInOut',
-        duration: 1,
-      },
-    },
-  };
-
   const pageVar = {
     initial: {
       opacity: 0,
@@ -108,40 +90,45 @@ const Movies: React.FC = () => {
         }}
         className="max-h-max min-h-[1000px] w-full bg-neutral-800 px-6 pb-2 pt-20 text-left md:px-20"
       >
-        <motion.div
-          variants={animation}
-          initial="initial"
-          animate="animate"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
-            gridTemplateRows: 'repeat(auto-fill, minmax(200px, 1fr))',
-            rowGap: '30px',
-            columnGap: '30px',
-          }}
-          className="mb-16 mt-4 max-h-max min-h-[100px] w-full gap-y-5 pl-4 sm:gap-y-8 sm:pl-0"
-        >
-          {movies.length !== 0 && currentSearch && (
-            <InfiniteScroll
-              dataLength={movies.length}
-              next={showNextMovies}
-              hasMore={endFix}
-              scrollThreshold={1}
-              loader={<Loading />}
-              className="mb-16 mt-4 max-h-max min-h-[100px] w-full gap-y-5 pl-4 sm:gap-y-8 sm:pl-0"
-            >
-              <>
-                {movies?.map((movie: MoviesItem) => {
-                  return <MoviesView key={movie.imdbID} data={movie} movies={movies.length} page={page} />;
-                })}
-              </>
-            </InfiniteScroll>
-          )}
-        </motion.div>
-        {!currentSearch && <DefaultView />}
-        {isLoading && movies.length === 0 && <Loading />}
-        {movies.length === 0 && currentSearch && !isLoading && <NotFound />}
+        <div></div>
+        {movies.length !== 0 && currentSearch && (
+          <InfiniteScroll
+            dataLength={movies.length}
+            next={showNextMovies}
+            hasMore={endFix}
+            scrollThreshold={1}
+            loader={<Loading />}
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              marginRight: '-15px',
+              marginLeft: '-15px',
+            }}
+            endMessage={
+              <p style={{ textAlign: 'center' }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+            className="mb-16 mt-4 max-h-max min-h-[100px] w-full gap-y-5 pl-4 sm:gap-y-8 sm:pl-0"
+          >
+            {movies && movies.length > 0 && (
+              <div className="sma:px-0 flex w-full items-center justify-between px-4">
+                <h3 className="mb-2 py-2 text-xl font-bold text-teal-400 md:text-2xl">
+                  Search results: {totalResults}
+                </h3>
+              </div>
+            )}
+            <>
+              {movies?.map((movie: MoviesItem) => {
+                return <MoviesView key={movie.imdbID} data={movie} movies={movies.length} page={page} />;
+              })}
+            </>
+          </InfiniteScroll>
+        )}
       </motion.div>
+      {!currentSearch && <DefaultView />}
+      {isLoading && movies.length === 0 && <Loading />}
+      {movies.length === 0 && currentSearch && !isLoading && <NotFound />}
     </>
   );
 };
