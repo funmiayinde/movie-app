@@ -4,19 +4,18 @@ import { NameContext } from '../../layout/app-layout';
 import { motion } from 'framer-motion';
 import search from '../../assets/svgs/icons8-search.svg';
 import { toast } from 'react-toastify';
+import { useAppDispatch } from '../../redux/store';
+import { findMovies } from '../../redux/actions';
 
 const Nav = () => {
   const [searchParams] = useSearchParams();
   const currentSearch = searchParams.get('query');
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const [query, setQuery] = useState<string | null>(() => currentSearch);
 
-  const NaveContext = useContext(NameContext);
-
-  //   const moviesHook = useMovies({
-  //     key: FIND_MOVIES,
-  //   });
+  const NavContext = useContext(NameContext);
 
   const navVariant = {
     initial: {
@@ -39,7 +38,7 @@ const Nav = () => {
   };
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value.toLowerCase().trim());
+    setQuery(e.target.value.toLowerCase());
   };
 
   const handleOnSearch = (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -52,6 +51,7 @@ const Nav = () => {
       return;
     }
     navigate(`/?query=${query}`);
+    dispatch(findMovies([]));
   };
 
   return (
@@ -71,7 +71,7 @@ const Nav = () => {
       </Link>
       <div className="flex w-full items-center justify-end">
         <button
-          onClick={() => NaveContext?.searchPage[1](true)}
+          onClick={() => NavContext?.searchPage[1](true)}
           className="-mt-0.5 mr-4 border-none bg-transparent p-0 outline-none md:mr-5 md:mt-1 lg:hidden"
         >
           <img src={search} alt="search" className="h-8 w-8" />
