@@ -1,61 +1,61 @@
-import { useEffect, useState, useRef } from 'react';
-import { useSearchParams, useLocation } from 'react-router-dom';
-import InfiniteScroll from 'react-infinite-scroll-component';
+// import { useEffect, useState, useRef } from 'react';
+// import { useSearchParams, useLocation } from 'react-router-dom';
+// import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { findMovies } from '../../redux/middlewares';
-import { Loading } from '../Loading';
-import DefaultView from '../DefaultView';
-import MoviesView from '../MovieView';
-import { NotFound } from '../NotFound';
-import { MoviesItem } from '../../types';
+// import { useAppDispatch, useAppSelector } from '../../redux/store';
+// import { findMovies } from '../../redux/middlewares';
+// import { Loading } from '../Loading';
+// import DefaultView from '../DefaultView';
+// import MoviesView from '../MovieView';
+// import { NotFound } from '../NotFound';
+// import { MoviesItem } from '../../types';
 import { motion } from 'framer-motion';
 
-const AllMovies = () => {
-  const [searchParams] = useSearchParams();
-  const currentSearch = searchParams.get('query');
-  const [endFix, setEndFix] = useState<boolean>(true);
-  const { data: movies, totalResults, loading: isLoading } = useAppSelector((state) => state.movies);
-  const location = useLocation();
-  const [page, setPage] = useState<number>(
-    location?.state?.details.movies === movies.length ? location?.state?.details.page + 1 : 1,
-  );
-  const dispatch = useAppDispatch();
-  const prevQuery = useRef<string | null | undefined>(null);
-  const pageRef = useRef<number | null | undefined>(null);
+const Movies = () => {
+  // const [searchParams] = useSearchParams();
+  // const currentSearch = searchParams.get('query');
+  // const [endFix, setEndFix] = useState<boolean>(true);
+  // const { data: movies, totalResults, loading: isLoading } = useAppSelector((state) => state.movies);
+  // const location = useLocation();
+  // const [page, setPage] = useState<number>(
+  //   location?.state?.details.movies === movies.length ? location?.state?.details.page + 1 : 1,
+  // );
+  // const dispatch = useAppDispatch();
+  // const prevQuery = useRef<string | null | undefined>(null);
+  // const pageRef = useRef<number | null | undefined>(null);
 
-  useEffect(() => {
-    if (pageRef.current === page && prevQuery.current === currentSearch) {
-      return;
-    }
+  // useEffect(() => {
+  //   if (pageRef.current === page && prevQuery.current === currentSearch) {
+  //     return;
+  //   }
 
-    if (prevQuery.current !== currentSearch && pageRef.current !== null) {
-      setPage(1);
-      setEndFix(true);
-    }
+  //   if (prevQuery.current !== currentSearch && pageRef.current !== null) {
+  //     setPage(1);
+  //     setEndFix(true);
+  //   }
 
-    if (movies.length === totalResults) {
-      setEndFix(false);
-      pageRef.current = page;
-      return;
-    }
+  //   if (movies.length === totalResults) {
+  //     setEndFix(false);
+  //     pageRef.current = page;
+  //     return;
+  //   }
 
-    if (prevQuery.current !== currentSearch && page === 1) {
-      pageRef.current = null;
-    }
+  //   if (prevQuery.current !== currentSearch && page === 1) {
+  //     pageRef.current = null;
+  //   }
 
-    if (currentSearch && pageRef.current !== page) {
-      dispatch(findMovies({ currentSearch, page }));
-    }
-    pageRef.current = page;
-    prevQuery.current = currentSearch;
-  }, [dispatch, currentSearch, page, movies, totalResults]);
+  //   if (currentSearch && pageRef.current !== page) {
+  //     dispatch(findMovies({ currentSearch, page }));
+  //   }
+  //   pageRef.current = page;
+  //   prevQuery.current = currentSearch;
+  // }, [dispatch, currentSearch, page, movies, totalResults]);
 
-  const showNextMovies = () => {
-    if (movies.length !== 0) {
-      setPage(page + 1);
-    }
-  };
+  // const showNextMovies = () => {
+  //   if (movies.length !== 0) {
+  //     setPage(page + 1);
+  //   }
+  // };
 
   const pageVar = {
     initial: {
@@ -90,8 +90,7 @@ const AllMovies = () => {
         }}
         className="max-h-max min-h-[1000px] w-full bg-neutral-800 px-6 pb-2 pt-20 text-left md:px-20"
       >
-        <div></div>
-        {movies.length !== 0 && currentSearch && (
+        {/* {movies.length !== 0 && currentSearch && (
           <InfiniteScroll
             dataLength={movies.length}
             next={showNextMovies}
@@ -127,13 +126,13 @@ const AllMovies = () => {
               })}
             </>
           </InfiniteScroll>
-        )}
+        )} */}
       </motion.div>
-      {!currentSearch && <DefaultView />}
+      {/* {!currentSearch && <DefaultView />}
       {isLoading && movies.length === 0 && <Loading />}
-      {movies.length === 0 && currentSearch && !isLoading && <NotFound />}
+      {movies.length === 0 && currentSearch && !isLoading && <NotFound />} */}
     </>
   );
 };
 
-export default AllMovies;
+export default Movies;
