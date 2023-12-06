@@ -116,6 +116,9 @@ const Movies: React.FC = () => {
                 <h3 className="mb-2 py-2 text-xl font-bold text-teal-400 md:text-2xl">
                   Search results: {totalResults}
                 </h3>
+                <h3 className="mb-2 py-2 text-xl font-bold text-teal-400 md:text-2xl ">
+                  {totalResults > 10 ? 'Scroll down to load more' : ''}
+                </h3>
               </div>
             )}
             <>
