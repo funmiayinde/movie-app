@@ -26,7 +26,6 @@ const moviesReducer = createReducer(initialState, (builder) => {
         return;
       }
       state.data = [...state.data, ...payload?.Search];
-      // state.data = [...payload?.Search]
       state.totalResults = Number(payload?.totalResults);
       state.loading = false;
     })

@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { findMovies } from '../../redux/middlewares';
 import { Loading } from '../Loading';
 import DefaultView from '../DefaultView';
-import MoviesView from './MovieView';
+import MoviesView from '../MovieView';
 import { NotFound } from '../NotFound';
 import { MoviesItem } from '../../types';
 import { motion } from 'framer-motion';
@@ -115,6 +115,9 @@ const Movies: React.FC = () => {
               <div className="sma:px-0 flex w-full items-center justify-between px-4">
                 <h3 className="mb-2 py-2 text-xl font-bold text-teal-400 md:text-2xl">
                   Search results: {totalResults}
+                </h3>
+                <h3 className="mb-2 py-2 text-xl font-bold text-teal-400 md:text-2xl ">
+                  {totalResults > 10 ? 'Scroll down to load more' : ''}
                 </h3>
               </div>
             )}

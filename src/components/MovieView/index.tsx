@@ -1,4 +1,4 @@
-import { MoviesItem } from '../../../types';
+import { MoviesItem } from '../../types';
 
 import { motion } from 'framer-motion';
 
