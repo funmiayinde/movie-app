@@ -5,15 +5,14 @@ import { findMovies as findAllMovies } from '../../redux/middlewares';
 
 interface UseMoviesReturnType {
   key: string;
+  doFind?: boolean;
   searchQuery?: string;
 }
 export const useMovies = ({ searchQuery }: UseMoviesReturnType) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
 
-  const { data: movies, totalResults, loading } = useAppSelector((state) => {
-    return state.movies
-  });
+  const { data: movies, totalResults, loading } = useAppSelector((state) => state.movies );
 
   const [page, setPage] = useState<number>(
     location?.state?.details.movies === movies?.length ? location.state?.details.page + 1 : 1,
@@ -29,7 +28,7 @@ export const useMovies = ({ searchQuery }: UseMoviesReturnType) => {
     }
   };
 
-  const findMovies = ({ searchQuery, page }: { searchQuery: string; page: number }) => {
+  const findMovies = ({ searchQuery, page = 1 }: { searchQuery?: string; page?: number }) => {
     dispatch(findAllMovies({ currentSearch: searchQuery, page }));
   };
 
@@ -55,6 +54,7 @@ export const useMovies = ({ searchQuery }: UseMoviesReturnType) => {
     pageRef.current = page;
     prevQuery.current = searchQuery;
   }, [dispatch, searchQuery, page, movies, totalResults]);
+  
   return {
     loading,
     movies,

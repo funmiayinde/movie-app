@@ -3,9 +3,10 @@ import './App.css';
 import { Suspense, lazy } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/ReactToastify.css'
+import 'react-toastify/ReactToastify.css';
+import { Loading } from './components/Loading';
 
-const AppLayout = lazy(() => import('./layout/app-layout'));
+const Movies = lazy(() => import('./pages/movies.page'));
 
 function App() {
   return (
@@ -24,11 +25,9 @@ function App() {
       />
       <AnimatePresence>
         <BrowserRouter>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loading/>}>
             <Routes>
-              <Route path="/" element={<AppLayout />}>
-                <Route path="/movies" element={<div>Hello world</div>} />
-              </Route>
+              <Route path="/" element={<Movies />}></Route>
             </Routes>
           </Suspense>
         </BrowserRouter>

@@ -1,8 +1,6 @@
-import { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { NameContext } from '../../layout/app-layout';
-import { useMovies } from '../../hooks';
-import { FIND_MOVIES } from '../../redux/actions';
 import { motion } from 'framer-motion';
 import search from '../../assets/svgs/icons8-search.svg';
 import { toast } from 'react-toastify';
@@ -12,13 +10,13 @@ const Nav = () => {
   const currentSearch = searchParams.get('query');
   const navigate = useNavigate();
 
-  const [query, setQuery] = useState<string | null>((() => currentSearch));
+  const [query, setQuery] = useState<string | null>(() => currentSearch);
 
   const NaveContext = useContext(NameContext);
 
-  const moviesHook = useMovies({
-    key: FIND_MOVIES,
-  });
+  //   const moviesHook = useMovies({
+  //     key: FIND_MOVIES,
+  //   });
 
   const navVariant = {
     initial: {
@@ -55,13 +53,6 @@ const Nav = () => {
     }
     navigate(`/?query=${query}`);
   };
-
-  useEffect(() => {
-    if (currentSearch) {
-      moviesHook.findMovies({ searchQuery: currentSearch as string, page: 1 });
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentSearch]);
 
   return (
     <motion.nav
