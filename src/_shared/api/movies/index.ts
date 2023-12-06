@@ -1,23 +1,33 @@
-import axios from 'axios'
+import axios from 'axios';
 
-import { Movies } from '../../../types'
+import { Movies } from '../../../types';
 
-export const BASEURL = import.meta.env.VITE_BASE_URL
-const API_KEY = import.meta.env.VITE_API_KEY
+export const BASEURL = import.meta.env.VITE_BASE_URL;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 export const movies = axios.create({
-  baseURL: `${BASEURL}`
-})
+  baseURL: `${BASEURL}`,
+});
 
 async function getMoviesSearchRequest(data: {
-  currentSearch: string | null
-  page: number
+  currentSearch?: string | null;
+  page?: number;
 }): Promise<Movies | undefined> {
   const { currentSearch, page } = data;
-  try{
-    const response = await movies.get(`/?apikey=${API_KEY}&s=${currentSearch}&type=movie&page=${page}`);
+  try {
+    console.log('findMovies-page:::', page);
+    const response = await movies.request({
+      method: 'get',
+      url: '/',
+      params: {
+        apikey: `${API_KEY}`,
+        s: currentSearch,
+        page,
+        type: 'movie',
+      },
+    });
     return response.data;
-  }catch(e){
+  } catch (e) {
     console.log('Error::', e);
     return;
   }

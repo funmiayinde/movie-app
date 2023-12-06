@@ -5,7 +5,7 @@ import { FIND_MOVIES } from '../../../actions/movies';
 import { getMoviesSearchRequest } from '../../../../_shared';
 import { toast } from 'react-toastify';
 
-const findMovies = createAsyncThunk<Movies, { currentSearch: string | null; page: number }, { rejectValue: never }>(
+const findMovies = createAsyncThunk<Movies, { currentSearch?: string | null; page?: number }, { rejectValue: never }>(
   FIND_MOVIES,
   async (data, { rejectWithValue }: any) => {
     try {

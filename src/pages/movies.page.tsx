@@ -1,7 +1,12 @@
+import Movies from '../components/Movies';
+import AppLayout from '../layout/app-layout';
 
-
-
-const Movies = () => {
-
-}
-export default Movies;
+const MoviesPage = () => {
+  return (
+    <>
+      <AppLayout />
+      <Movies />
+    </>
+  );
+};
+export default MoviesPage;
