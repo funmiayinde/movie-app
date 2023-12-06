@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { findMovies } from '../../redux/middlewares';
 import { Loading } from '../Loading';
 import DefaultView from '../DefaultView';
-import MoviesView from './MovieView';
+import MoviesView from '../MovieView';
 import { NotFound } from '../NotFound';
 import { MoviesItem } from '../../types';
 import { motion } from 'framer-motion';
