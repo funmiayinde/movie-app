@@ -11,7 +11,7 @@ import { NotFound } from '../NotFound';
 import { MoviesItem } from '../../types';
 import { motion } from 'framer-motion';
 
-const Movies = () => {
+const AllMovies = () => {
   const [searchParams] = useSearchParams();
   const currentSearch = searchParams.get('query');
   const [endFix, setEndFix] = useState<boolean>(true);
@@ -136,4 +136,4 @@ const Movies = () => {
   );
 };
 
-export default Movies;
+export default AllMovies;
